@@ -8,8 +8,11 @@
 
 - Dataset : https://www.kaggle.com/annavictoria/speed-dating-experiment#Speed%20Dating%20Data.csv
 
-- Baseline : https://www.kaggle.com/jph84562/the-ugly-truth-of-people-decisions-in-speed-dating
+- train : wave 1 ~ 15
 
+- test : wave 16 ~ 21 
+
+- Baseline : https://www.kaggle.com/jph84562/the-ugly-truth-of-people-decisions-in-speed-dating
 
 ### Approach : 
 
