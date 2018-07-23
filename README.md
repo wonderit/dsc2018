@@ -11,21 +11,10 @@
 - Baseline : https://www.kaggle.com/jph84562/the-ugly-truth-of-people-decisions-in-speed-dating
 
 
-
-### Problem :
-
-- Problem link : https://www.edwith.org/datacompetition2018/lecture/28757/
-
-- Dataset : Wisconsin Diagnostic Breast Cancer Data Set (WDBC)	Categorical Attributes
-https://www.kaggle.com/uciml/breast-cancer-wisconsin-data#data.csv
-
-- Baseline : https://www.kaggle.com/gargmanish/basic-machine-learning-with-cancer/notebook
-
-
 ### Approach : 
 
-- 3 typical models
+- 3 Questions. 
 
-- 3 new model approaches.
+- 3 new model for solution.
 
 
