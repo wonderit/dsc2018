@@ -2,19 +2,22 @@
 
 ## 1. Online Test
 
-### Problem : 
+### Problem Edited : 
 
-- Problem link : https://www.edwith.org/datacompetition2018/lecture/28757/
+- Problem link : https://www.kaggle.com/annavictoria/speed-dating-experiment/home
 
-- Dataset : Wisconsin Diagnostic Breast Cancer Data Set (WDBC)	Categorical Attributes
-https://www.kaggle.com/uciml/breast-cancer-wisconsin-data#data.csv
+- Dataset : https://www.kaggle.com/annavictoria/speed-dating-experiment#Speed%20Dating%20Data.csv
 
-- Baseline : https://www.kaggle.com/gargmanish/basic-machine-learning-with-cancer/notebook
+- train : wave 1 ~ 15
+
+- test : wave 16 ~ 21 
+
+- Baseline : https://www.kaggle.com/jph84562/the-ugly-truth-of-people-decisions-in-speed-dating
 
 ### Approach : 
 
-- 3 typical models
+- 3 Questions. 
 
-- 3 new model approaches.
+- 3 new model for solution.
 
 
