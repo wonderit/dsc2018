@@ -58,6 +58,19 @@
 4. 결과 (다같이)
 
     - accuracy 비교 
+        * wonsuk
+            ```
+            ### 1. model : RandomForestClassifier
+            Mean Accuracy: 0.573770128235
+            ### 2. model : LogisticRegression
+            Mean Accuracy: 0.598620230806
+            ### 3. model : SVC
+            Mean Accuracy: 0.567413843631
+            ### 4. model : KNeighborsClassifier
+            Mean Accuracy: 0.565009148297
+            ### 5. model : DecisionTree
+            Mean Accuracy: 0.520274765748
+            ```
 
 5 결론 (다같이)
 
