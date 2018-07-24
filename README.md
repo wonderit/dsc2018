@@ -43,7 +43,7 @@
 
     - dataset preprocessing (원석)
         - 사용한 변수
-        - null 데이터 처리
+        - null 데이터 처리 (train/test : 6428 / 1950 -> 5028 / 1572)
         - train/test 분리
 
     - 학습 모델 (다같이)
