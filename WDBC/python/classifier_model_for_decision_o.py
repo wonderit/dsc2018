@@ -1,21 +1,12 @@
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 # machine learning
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC, LinearSVC
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import StandardScaler, RobustScaler, QuantileTransformer, MinMaxScaler, PowerTransformer
-from sklearn.gaussian_process import GaussianProcessClassifier
-from sklearn.gaussian_process.kernels import RBF
-from keras import models
-from keras import layers
-
-from keras.wrappers.scikit_learn import KerasClassifier
 
 from sklearn.neural_network import MLPClassifier
-from sklearn.naive_bayes import GaussianNB, BaseNB, BaseDiscreteNB
-from sklearn.datasets import make_classification
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import KFold
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
@@ -45,13 +36,6 @@ test_x = StandardScaler().fit_transform(test_x)
 
 # train_x = PowerTransformer().fit_transform(train_x)
 # test_x = PowerTransformer().fit_transform(test_x)
-
-
-
-# print(train_x.shape)
-# print(train_y.shape)
-# print(test_x.shape)
-# print(test_y.shape)
 
 
 def run_kfold(clf):
@@ -106,35 +90,4 @@ for name, clf in zip(names, classifiers):
     run_kfold(clf)
 
 
-# print("### 1. model : RandomForestClassifier")
-# random_forest = RandomForestClassifier()
-# run_kfold(random_forest)
-#
-# print("### 2. model : LogisticRegression")
-# logreg = LogisticRegression()
-# run_kfold(logreg)
-#
-# print("### 3. model : SVC")
-# svc = SVC()
-# run_kfold(svc)
-#
-# print("### 4. model : KNeighborsClassifier")
-# knn = KNeighborsClassifier(n_neighbors=8)
-# run_kfold(knn)
-#
-# print("### 5. model : DecisionTree")
-# decisionTree = DecisionTreeClassifier()
-# run_kfold(decisionTree)
-#
-# print("### 6. model : MLP")
-# neural_network = MLPClassifier(activation='relu',
-#                                solver='lbfgs',
-#                                alpha=1e-5,
-#                                hidden_layer_sizes=(5, 2),
-#                                random_state=1)
-# run_kfold(neural_network)
-#
-# print("### 7. model : Gaussian NB")
-# gaussianNB = GaussianNB()
-# run_kfold(gaussianNB)
 
