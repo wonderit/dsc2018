@@ -14,6 +14,12 @@ import csv
 # "pref_o_funny",98
 # "pref_o_ambitious",107
 # "pref_o_shared_interests",129
+# "attractive_o",212
+# "sinsere_o",287
+# "intelligence_o",306
+# "funny_o",360
+# "ambitous_o",722
+# "shared_interests_o",1076
 # "attractive_important",79
 # "sincere_important",79
 # "intelligence_important",79
@@ -34,7 +40,11 @@ import csv
 # "like",240
 # "met",375
 # "decision_o",0
-index_array = [2,3,4,9,10,15,16,17,18,19,20,39,40,41,42,43,44,51,52,53,54,55,61,62,63,64,65,66,115,119,121]
+index_array = [2,3,4,9,10,
+               15,16,17,18,19,20,
+               27,28,29,30,31,32,  # added for data analysis
+               39,40,41,42,43,44,
+               51,52,53,54,55,61,62,63,64,65,66,115,119,121]
 
 numberOfRow = 0  # number of the row in the original dataset
 numberOfNewRow = 0  # number of the row in the original dataset
@@ -42,7 +52,7 @@ newData = []
 newHeader = []
 # this opens the csv file with 'rU' because there was otherwise an error
 # with the large csv file
-original_file_location = '../data/speeddating_train.csv'
+original_file_location = '../data/speeddating_id.csv'
 data = open(original_file_location, 'rU')  # the original data set
 with data as aFile:
     csvReader = csv.reader(aFile)
@@ -82,7 +92,7 @@ with data as aFile:
 
     print("numberOfRow: ", numberOfRow, "new Row: ", numberOfNewRow)
 
-    myFile = open('speeddating_train_preprocessed.csv', 'w')
+    myFile = open('speeddating_preprocessed_id_DA.csv', 'w')
     with myFile:
         writer = csv.writer(myFile)
         writer.writerows(newData)

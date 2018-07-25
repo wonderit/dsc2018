@@ -59,18 +59,22 @@
 
     - accuracy 비교 
         * wonsuk
-            ```
-            ### 1. model : RandomForestClassifier
-            Mean Accuracy: 0.573770128235
-            ### 2. model : LogisticRegression
-            Mean Accuracy: 0.598620230806
-            ### 3. model : SVC
-            Mean Accuracy: 0.567413843631
-            ### 4. model : KNeighborsClassifier
-            Mean Accuracy: 0.565009148297
-            ### 5. model : DecisionTree
-            Mean Accuracy: 0.520274765748
-            ```
+            
+            Mean Accuracy Result
+            ----------------------------
+            |Model | w/o Scaler| StandardScaler | MinMaxScaler | QuantileTransformer |
+            |:----:| :----:| :----:| :----:| :----:|
+            | KNN(k=8) | 56.5 | **58.4** | 57.9 | 57.8 |
+            | LR | 59.9 | 59.9 | 60.3 | **60.6** |
+            | Linear SVM | 59.9 | 60.0 | 59.9 | **60.5** |
+            | RBF SVM | 58.3 | 59.3 | 58.5 | **59.6** |
+            | DecisionTree | 53.1 | 55.8 | 55.8 | **56.0** |
+            | RF | **58.2** | 57.5 | 58.1 | 57.3 |
+            | MLP(5,2) | 58.1 | 57.4 | **58.9** | 58.3 |
+            | AdaBoost | 58.5 | 58.5 | 58.5 | **58.6** |
+            | GaussianNB | **58.9** | 58.8 | 58.8 | 58.7 |
+            | QDA | **58.8** | **58.8** | **58.8** | 57.0 |
+            
 
 5 결론 (다같이)
 
