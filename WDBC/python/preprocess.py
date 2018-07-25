@@ -97,7 +97,7 @@ with data as aFile:
 
     print("numberOfRow: ", numberOfRow, "new Row: ", numberOfNewRow)
 
-    myFile = open('speeddating_preprocessed_id_test.csv', 'w')
+    myFile = open('../data/speeddating_preprocessed_id_mean_test.csv', 'w')
     with myFile:
         writer = csv.writer(myFile)
         writer.writerows(newData)
