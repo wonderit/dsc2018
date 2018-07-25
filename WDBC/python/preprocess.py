@@ -46,40 +46,45 @@ index_array = [2,3,4,9,10,
                39,40,41,42,43,44,
                51,52,53,54,55,61,62,63,64,65,66,115,119,121]
 
+
+index_array_adjust = [0, 1]
+
+for j in index_array:
+    index_array_adjust.append(j+2)
+
 numberOfRow = 0  # number of the row in the original dataset
 numberOfNewRow = 0  # number of the row in the original dataset
 newData = []
 newHeader = []
 # this opens the csv file with 'rU' because there was otherwise an error
 # with the large csv file
-original_file_location = '../data/speeddating_id.csv'
+original_file_location = '../data/speeddating_id_test.csv'
 data = open(original_file_location, 'rU')  # the original data set
 with data as aFile:
     csvReader = csv.reader(aFile)
 
     for row in csvReader:  # for every row in the dataset
         numberOfRow += 1
-
         #  Set Header
         if numberOfRow == 1:
-            for i in index_array:
+            for i in index_array_adjust:
                 newHeader.append(row[i])
             newData.append(newHeader)
             continue
 
         isNull = False
-        for i in index_array:
+        for i in index_array_adjust:
             if row[i] in (None, '?'):
                 isNull = True
                 break
 
         if not isNull:
-            newRow = []
-            for i in index_array:
+            newRow=[]
+            for i in index_array_adjust:
                 column = row[i]
 
                 # if gender : male = 0, female : 1
-                if i == 2:
+                if i == 4:
                     if column == 'male':
                         column = 0
                     else:
@@ -92,7 +97,7 @@ with data as aFile:
 
     print("numberOfRow: ", numberOfRow, "new Row: ", numberOfNewRow)
 
-    myFile = open('speeddating_preprocessed_id_DA.csv', 'w')
+    myFile = open('speeddating_preprocessed_id_test.csv', 'w')
     with myFile:
         writer = csv.writer(myFile)
         writer.writerows(newData)
