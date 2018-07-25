@@ -35,7 +35,7 @@ for(i in NA.idx){
   print(i);
 }
 
-write.csv(train, file="../data/speeddating_preprocessed_id_mean_likeo_train.csv")
-write.csv(test, file="../data/speeddating_preprocessed_id_mean_likeo_test.csv")
+write.csv(train, file="../data/speeddating_preprocessed_id_mean_likeo_train.csv", row.names = FALSE)
+write.csv(test, file="../data/speeddating_preprocessed_id_mean_likeo_test.csv", row.names = FALSE)
 
 
