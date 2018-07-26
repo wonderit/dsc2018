@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 # machine learning
 from sklearn.linear_model import LogisticRegression
+from sklearn.pipeline import Pipeline
 from sklearn.svm import SVC, LinearSVC
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import StandardScaler, RobustScaler, QuantileTransformer, MinMaxScaler, PowerTransformer
@@ -19,21 +20,44 @@ data_test = pd.read_csv("../data/speeddating_test_preprocessed.csv")
 dataset_train = data_train.values
 dataset_test = data_test.values
 
-train_x = dataset_train[:, :-1]
-train_y = dataset_train[:, -1]
 
-test_x = dataset_test[:, :-1]
-test_y = dataset_test[:, -1]
+variables_x = [
+    'gender',
+    'age',
+    'age_o',
+    'samerace','important_same_race',
+    'pref_o_shared_interests', 'pref_o_attractive', 'pref_o_sincere',
+    'pref_o_intelligence', 'pref_o_funny', 'pref_o_ambitious',
+    # 'attractive_o', 'sinsere_o','intelligence_o', 'funny_o', 'ambitous_o', 'shared_interests_o',
+    'attractive_important', 'sincere_important', 'intellicence_important',
+    'funny_important', 'ambtition_important', 'shared_interests_important',
+    'attractive', 'sincere', 'intelligence', 'funny', 'ambition',
+    'attractive_partner', 'sincere_partner', 'intelligence_partner',
+    'funny_partner', 'ambition_partner', 'shared_interests_partner',
+    'met',
+    'like'
+]
+
+variables_y = [
+    'decision_o'
+]
+
+train_x = dataset_train[:, data_train.columns.isin(variables_x)]
+train_y = dataset_train[:, data_train.columns.isin(variables_y)].reshape(-1)
+test_x = dataset_test[:, data_train.columns.isin(variables_x)]
+test_y = dataset_test[:, data_train.columns.isin(variables_y)].reshape(-1)
 #
-train_x = StandardScaler().fit_transform(train_x)
-test_x = StandardScaler().fit_transform(test_x)
+
+SCALER = RobustScaler()
+# train_x = StandardScaler().fit_transform(train_x)
+# test_x = StandardScaler().fit_transform(test_x)
 #
 # train_x = MinMaxScaler().fit_transform(train_x)
 # test_x = MinMaxScaler().fit_transform(test_x)
-
+#
 # train_x = QuantileTransformer().fit_transform(train_x)
 # test_x = QuantileTransformer().fit_transform(test_x)
-
+#
 # train_x = PowerTransformer().fit_transform(train_x)
 # test_x = PowerTransformer().fit_transform(test_x)
 
@@ -51,7 +75,10 @@ def run_kfold(clf):
         accuracy = accuracy_score(ytest, predictions)
         outcomes.append(accuracy)
     mean_outcome = np.mean(outcomes)
-    print("Mean Accuracy: {0}".format(mean_outcome))
+    print("K fold model Mean Accuracy: %.1f" % (mean_outcome * 100))
+    predictions_test = clf.predict(test_x)
+    accuracy_test = accuracy_score(test_y, predictions_test)
+    print("K fold model TEST Accuracy: %.1f" % (accuracy_test * 100))
 
 
 names = ["Nearest Neighbors",
@@ -66,20 +93,36 @@ names = ["Nearest Neighbors",
          "QDA"]
 
 classifiers = [
-    KNeighborsClassifier(n_neighbors=8),
-    LogisticRegression(),
-    LinearSVC(),
-    SVC(),
-    DecisionTreeClassifier(max_depth=5),
-    RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1),
-    MLPClassifier(activation='relu',
-                  solver='lbfgs',
-                  alpha=1e-5,
-                  hidden_layer_sizes=(5, 2),
-                  random_state=1),
-    AdaBoostClassifier(),
-    GaussianNB(),
-    QuadraticDiscriminantAnalysis()]
+    Pipeline([('scaler', SCALER), ('classifier', KNeighborsClassifier(n_neighbors=8))]),
+    Pipeline([('scaler', SCALER), ('classifier', LogisticRegression())]),
+    Pipeline([('scaler', SCALER), ('classifier', LinearSVC(max_iter=5000, random_state=1))]),
+    Pipeline([('scaler', SCALER), ('classifier', SVC(gamma='scale'))]),
+    Pipeline([('scaler', SCALER), ('classifier', DecisionTreeClassifier(max_depth=5))]),
+    Pipeline([('scaler', SCALER), ('classifier', RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1))]),
+    Pipeline([('scaler', SCALER), ('classifier', MLPClassifier(activation='relu',
+                      solver='lbfgs',
+                      alpha=1e-5,
+                      hidden_layer_sizes=(5, 2),
+                      random_state=1))]),
+    Pipeline([('scaler', SCALER), ('classifier', AdaBoostClassifier())]),
+    Pipeline([('scaler', SCALER), ('classifier', GaussianNB())]),
+    Pipeline([('scaler', SCALER), ('classifier', QuadraticDiscriminantAnalysis())]),
+
+    # KNeighborsClassifier(n_neighbors=8),
+    # LogisticRegression(),
+    # LinearSVC(max_iter=5000, random_state=1),
+    # SVC(gamma='scale'),
+    # DecisionTreeClassifier(max_depth=5),
+    # RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1),
+    # MLPClassifier(activation='relu',
+    #               solver='lbfgs',
+    #               alpha=1e-5,
+    #               hidden_layer_sizes=(5, 2),
+    #               random_state=1),
+    # AdaBoostClassifier(),
+    # GaussianNB(),
+    # QuadraticDiscriminantAnalysis()
+]
 
 
 index = 0
