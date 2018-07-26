@@ -92,35 +92,36 @@
             | GaussianNB    | 57.5      | 57.8              | 56.5              | **58.8**              | 58.5
             | QDA           | **56.2**  | 56.2              | **56.2**          | 57.3                  | 57.4
             
-             RMSE Result (w/o opponent's score data) for like_o
-            ----------------------------
-            |Model          | w/o Scaler| StandardScaler    | MinMaxScaler      | QuantileTransformer   | PowerTransformer  |
-            |:----:         | :----:    | :----:            | :----:            | :----:                |:----:
-            | KNN(k=8)      | 54.4      | **58.9**          | 57.1              | 56.2                  | 57.2
-            | LR            | 59.7      | 59.3              | 59.5              | 58.5                  | **60.1**
-            | Linear SVM    | 43.7      | **60.1**          | **60.1**          | 58.8                  | 59.9
-            | RBF SVM       | 56.8      | 58.4              | **59.4**          | **59.4**              | 57.4
-            | DecisionTree  | **58.0**  | 55.9              | 56.0              | 55.2                  | 57.1 
-            | RF            | **58.6**  | 57.6              | 57.8              | 57.6                  | 56.8
-            | MLP(5,2)      | 57.3      | 60.6              | **59.3**          | **59.3**              | 58.7
-            | AdaBoost      | 56.0      | 56.6              | 57.3              | **57.9**              | 56.0
-            | GaussianNB    | 58.1      | 57.7              | 57.2              | **59.3**              | 59.1
-            | QDA           | 56.6      | 56.5              | 57.1              | **57.8**              | 56.6
             
+             "Linear Regression",
+    "LAsso",
+    "Ridge",
+    "SGDRegressor",
+    "RandomForestRegressor",
+    "MLPRegressor"
+    
              RMSE Result (w/o opponent's score data) for like_o
             ----------------------------
-            |Model          | w/o Scaler| StandardScaler    | MinMaxScaler      | QuantileTransformer   | PowerTransformer  |
-            |:----:         | :----:    | :----:            | :----:            | :----:                |:----:
-            | KNN(k=8)      | 54.8      | 57.0              | **58.0**          | 54.6                  | 56.7
-            | LR            | 59.5      | **60.2**          | 60.1              | 59.0                  | 59.7
-            | Linear SVM    | 57.8      | 59.5              | 60.0              | 58.9                  | **60.2**
-            | RBF SVM       | 57.4      | 58.4              | 58.6              | **59.8**              | 58.3
-            | DecisionTree  | 56.6      | **57.6**          | 56.9              | **57.6**              | **57.6**
-            | RF            | **58.9**  | 57.6              | 57.8              | 58.0                  | 56.9
-            | MLP(5,2)      | 57.3      | 58.0              | 58.6              | **59.7**              | 57.1
-            | AdaBoost      | 55.9      | 57.3              | 57.5              | 58.0                  | **58.2**
-            | GaussianNB    | 57.5      | 57.8              | 56.5              | **58.8**              | 58.5
-            | QDA           | **56.2**  | 56.2              | **56.2**          | 57.3                  | 57.4
+            |Model              | w/o Scaler| StandardScaler    | MinMaxScaler      | QuantileTransformer   | PowerTransformer  |
+            |:----:             | :----:    | :----:            | :----:            | :----:                |:----:
+            | Linear Regression | 1.82      | 1.82              | 1.82              | 1.81                  | 1.81
+            | LAsso             | 1.83      | 1.83              | 1.83              | 1.83                  | 1.83
+            | Ridge             | 1.82      | 1.82              | 1.83              | 1.81                  | 1.81
+            | SGDRegressor      | N/A       | 1.82              | 1.85              | 1.81                  | 1.80
+            | RandomForest      | 1.94      | 1.99              | 2.36              | 1.96                  | 1.95
+            | MLP(5,2)          | 1.82      | 1.83              | 2.10              | 1.81                  | 1.81
+            
+             RMSE Result (w/ opponent's score data) for like_o
+            ----------------------------
+            |Model              | w/o Scaler| StandardScaler    | MinMaxScaler      | QuantileTransformer   | PowerTransformer  |
+            |:----:             | :----:    | :----:            | :----:            | :----:                |:----:
+            | Linear Regression | 1.17      | 1.82              | 1.82              | 1.81                  | 1.81
+            | LAsso             | 1.27      | 1.83              | 1.83              | 1.83                  | 1.83
+            | Ridge             | 1.17      | 1.82              | 1.83              | 1.81                  | 1.81
+            | SGDRegressor      | N/A       | 1.82              | 1.85              | 1.81                  | 1.80
+            | RandomForest      | 1.27      | 1.99              | 2.36              | 1.96                  | 1.95
+            | MLP(5,2)          | 1.17      | 1.83              | 2.10              | 1.81                  | 1.81
+            
             
 
 5 결론 (다같이)\

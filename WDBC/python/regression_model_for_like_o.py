@@ -39,7 +39,7 @@ variables_x = [
     'samerace',
     'pref_o_shared_interests', 'pref_o_attractive', 'pref_o_sincere',
     'pref_o_intelligence', 'pref_o_funny', 'pref_o_ambitious',
-
+    'attractive_o', 'sinsere_o','intelligence_o', 'funny_o', 'ambitous_o', 'shared_interests_o',
     'attractive_important', 'sincere_important', 'intellicence_important',
     'funny_important', 'ambtition_important', 'shared_interests_important',
     'attractive', 'sincere', 'intelligence', 'funny', 'ambition',
@@ -48,7 +48,7 @@ variables_x = [
     'like'
 ]
 
-# 'attractive_o', 'sinsere_o','intelligence_o', 'funny_o', 'ambitous_o', 'shared_interests_o',
+
 
 
 
@@ -61,31 +61,32 @@ train_y = dataset_train[:, data_train.columns.isin(variables_y)].reshape(-1)
 test_x = dataset_test[:, data_train.columns.isin(variables_x)]
 test_y = dataset_test[:, data_train.columns.isin(variables_y)].reshape(-1)
 
-
-print(train_x[1,:])
 #
-# train_x = StandardScaler().fit_transform(train_x)
-# test_x = StandardScaler().fit_transform(test_x)
+train_x = StandardScaler().fit_transform(train_x)
+test_x = StandardScaler().fit_transform(test_x)
 #
 # train_x = MinMaxScaler().fit_transform(train_x)
 # test_x = MinMaxScaler().fit_transform(test_x)
-
-train_x = PowerTransformer().fit_transform(train_x)
-test_x = PowerTransformer().fit_transform(test_x)
-
-myFile = open('../data/power_test_x.csv', 'w')
-with myFile:
-    writer = csv.writer(myFile)
-    writer.writerows(test_x)
-
-myFile2 = open('../data/power_train_x.csv', 'w')
-with myFile2:
-    writer2 = csv.writer(myFile2)
-    writer2.writerows(train_x)
-
-
+# train_x = QuantileTransformer().fit_transform(train_x)
+# test_x = QuantileTransformer().fit_transform(test_x)
+#
 # train_x = PowerTransformer().fit_transform(train_x)
 # test_x = PowerTransformer().fit_transform(test_x)
+
+#
+# myFile = open('../data/power_test_x.csv', 'w')
+# with myFile:
+#     writer = csv.writer(myFile)
+#     writer.writerows(test_x)
+#
+# myFile2 = open('../data/power_train_x.csv', 'w')
+# with myFile2:
+#     writer2 = csv.writer(myFile2)
+#     writer2.writerows(train_x)
+#
+#
+# # train_x = PowerTransformer().fit_transform(train_x)
+# # test_x = PowerTransformer().fit_transform(test_x)
 
 SCALER = None
 
@@ -106,14 +107,14 @@ def run_kfold(clf):
         xval_err += np.dot(e, e)
 
     rmse_10cv = np.sqrt(xval_err / len(train_x))
-    print('RMSE on 10-fold CV: %.4f' % rmse_10cv)
+    print('RMSE on 10-fold CV: %.2f' % rmse_10cv)
 
     prediction_test = clf.predict(test_x)
     e_test = prediction_test - test_y
     xtest_err = 0
     xtest_err += np.dot(e_test, e_test)
     rmse_test = np.sqrt(xtest_err / len(test_x))
-    print('TEST RMSE : %.4f' % rmse_test)
+    print('TEST RMSE : %.2f' % rmse_test)
 
 
 names = [
@@ -126,23 +127,6 @@ names = [
 ]
 
 regressors = [
-    Pipeline([('scaler', SCALER), ('regressor', KNeighborsClassifier(n_neighbors=8))]),
-    Pipeline([('scaler', SCALER), ('regressor', LogisticRegression())]),
-    Pipeline([('scaler', SCALER), ('classifier', LinearSVC(max_iter=5000, random_state=1))]),
-    Pipeline([('scaler', SCALER), ('classifier', SVC(gamma='scale'))]),
-    Pipeline([('scaler', SCALER), ('classifier', DecisionTreeClassifier(max_depth=5))]),
-    Pipeline([('scaler', SCALER), ('classifier', RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1))]),
-    Pipeline([('scaler', SCALER), ('classifier', MLPClassifier(activation='relu',
-                      solver='lbfgs',
-                      alpha=1e-5,
-                      hidden_layer_sizes=(5, 2),
-                      random_state=1))]),
-    Pipeline([('scaler', SCALER), ('classifier', AdaBoostClassifier())]),
-    Pipeline([('scaler', SCALER), ('classifier', GaussianNB())]),
-    Pipeline([('scaler', SCALER), ('classifier', QuadraticDiscriminantAnalysis())]),
-
-]
-regressorsd = [
     LinearRegression(),
     Lasso(),
     Ridge(),
