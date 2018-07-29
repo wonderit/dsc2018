@@ -17,7 +17,8 @@
 ### Story line 
 1. Introduction
 
-    - Speed date dataset 선정 동기 (원석)
+    - Speed date dataset 선정 동기 
+        - 짧은 대화만으로 마음에 드는 이성을 찾기 힘들다는 문제를 해결하기 위해서 간단한 설문 항목을 참고하여 이를 해결하고자 함.
 
     - dataset 설명 
         - 2002~2004년동안 21 차례에 거친 speed dating 실험을 한 결과. 각각의 실험자는 상대 성별의 모든 상대들과 데이트를 4분간 진행한다. 
@@ -31,7 +32,7 @@
         
           ( 나에 대한 평가 없이 ) 상대방이 나를 마음에 들어하는지 여부를 예측
 
-2. 가설 제시 (유중)
+2. 가설 제시 
 
     - 상대방이 나를 마음에 들어했던 date 중 상대방이 비중을 두는 요소 
     (attractive, sincere, intelligence, funny, ambitious, shared interests ) 와 
@@ -45,12 +46,12 @@
 
 3. 해결 방안
 
-    - dataset preprocessing (원석)
+    - dataset preprocessing 
         - 사용한 변수
         - null 데이터 처리 (train/test : 6428 / 1950 -> 5028 / 1572)
         - train/test 분리
 
-    - 학습 모델 (다같이)
+    - 학습 모델 
         - blending, ensemble 
         - Logistic, Randomforest, ANN classifier 
         - crossvalidation 
@@ -126,13 +127,13 @@
             
             
 
-5 결론 (다같이)\
+5 결론
 
-    - 나를 마음에 들어하는 이성을 맞춤 소개시켜줄 수 있는 알고리즘으로의 확장
+    - 설문 정보를 바탕으로 상대가 나를 얼만큼 마음에 들어하는지를 예측할 수 있었다.
     
-    - 상대방이 나를 마음에 들게 하려면 어떤 점을 개선해야 할지 컨설팅
+    - 모델에 적용하는 변수를 제거할수록 성능이 낮아졌으며, 상대의 평가 수치를 제외하면 예측하기가 어려워졌다.
     
-    - 변수를 더 여러개를 써서 성능 향상
+    - 실제로 적용하기엔 개선해야할 부분이 남아있다.
 
 
 
