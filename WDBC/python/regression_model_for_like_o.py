@@ -1,56 +1,39 @@
+import csv
+
 import numpy as np
 import pandas as pd
-# machine learning
-from sklearn.linear_model import LogisticRegression
-from sklearn.pipeline import Pipeline
-from sklearn.svm import SVC, LinearSVC
-from sklearn.neighbors import KNeighborsClassifier
-
-from sklearn.linear_model import LinearRegression, Lasso, Ridge, ElasticNet, SGDRegressor
-from sklearn.preprocessing import StandardScaler, RobustScaler, QuantileTransformer, MinMaxScaler, PowerTransformer
-
-from sklearn.neural_network import MLPClassifier, MLPRegressor
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.linear_model import LinearRegression, Lasso, Ridge, SGDRegressor
 from sklearn.model_selection import KFold
-from sklearn.ensemble import RandomForestRegressor, AdaBoostClassifier
-from sklearn.naive_bayes import GaussianNB
-from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
-from sklearn.metrics import make_scorer, accuracy_score
+from sklearn.neural_network import MLPRegressor
+from sklearn.preprocessing import PowerTransformer
 
-from sklearn.metrics import regression
-from sklearn.svm import SVR
-from sklearn import model_selection as CV
-import csv
+# machine learning
 
 data_train = pd.read_csv("../data/sd_pr_id_mean_likeo_train.csv")
 data_test = pd.read_csv("../data/sd_pr_id_mean_likeo_test.csv")
 dataset_train = data_train.values
 dataset_test = data_test.values
 
-# train_x = dataset_train[:, 2:-2]
-# train_y = dataset_train[:, -1]
-# test_x = dataset_test[:, 2:-2]
-# test_y = dataset_test[:, -1]
-
+#
+# gender,age,age_o,samerace,importance_same_race,pref_o_shared_interests,pref_o_attractive,pref_o_sincere,pref_o_intelligence,pref_o_funny,pref_o_ambitious,attractive_o,sinsere_o,intelligence_o,funny_o,ambitous_o,shared_interests_o,attractive_important,sincere_important,intellicence_important,funny_important,ambtition_important,shared_interests_important,attractive,sincere,intelligence,funny,ambition,attractive_partner,sincere_partner,intelligence_partner,funny_partner,ambition_partner,shared_interests_partner,met,like,att_m,sin_m,int_m,fun_m,amb_m,sha_m
 variables_x = [
     'gender',
     'age',
     'age_o',
-    'samerace',
-    'pref_o_shared_interests', 'pref_o_attractive', 'pref_o_sincere',
-    'pref_o_intelligence', 'pref_o_funny', 'pref_o_ambitious',
-    'attractive_o', 'sinsere_o','intelligence_o', 'funny_o', 'ambitous_o', 'shared_interests_o',
-    'attractive_important', 'sincere_important', 'intellicence_important',
-    'funny_important', 'ambtition_important', 'shared_interests_important',
-    'attractive', 'sincere', 'intelligence', 'funny', 'ambition',
-    'attractive_partner', 'sincere_partner', 'intelligence_partner',
-    'funny_partner', 'ambition_partner', 'shared_interests_partner',
-    'like'
+    'samerace','importance_same_race',
+    'pref_o_shared_interests','pref_o_attractive','pref_o_sincere',
+    'pref_o_intelligence','pref_o_funny','pref_o_ambitious',
+    'attractive_o','sinsere_o','intelligence_o','funny_o','ambitous_o','shared_interests_o',
+    'attractive_important','sincere_important','intellicence_important',
+    'funny_important','ambtition_important','shared_interests_important',
+    'attractive','sincere','intelligence','funny','ambition',
+    'attractive_partner','sincere_partner','intelligence_partner',
+    'funny_partner','ambition_partner','shared_interests_partner',
+    'met',
+    'like',
+    'att_m','sin_m','int_m','fun_m','amb_m','sha_m'
 ]
-
-
-
-
 
 variables_y = [
     'like_o'
@@ -62,31 +45,31 @@ test_x = dataset_test[:, data_train.columns.isin(variables_x)]
 test_y = dataset_test[:, data_train.columns.isin(variables_y)].reshape(-1)
 
 #
-train_x = StandardScaler().fit_transform(train_x)
-test_x = StandardScaler().fit_transform(test_x)
-#
+# train_x = StandardScaler().fit_transform(train_x)
+# test_x = StandardScaler().fit_transform(test_x)
+
 # train_x = MinMaxScaler().fit_transform(train_x)
 # test_x = MinMaxScaler().fit_transform(test_x)
 # train_x = QuantileTransformer().fit_transform(train_x)
 # test_x = QuantileTransformer().fit_transform(test_x)
 #
-# train_x = PowerTransformer().fit_transform(train_x)
-# test_x = PowerTransformer().fit_transform(test_x)
+train_x = PowerTransformer().fit_transform(train_x)
+test_x = PowerTransformer().fit_transform(test_x)
 
 #
-# myFile = open('../data/power_test_x.csv', 'w')
-# with myFile:
-#     writer = csv.writer(myFile)
-#     writer.writerows(test_x)
-#
-# myFile2 = open('../data/power_train_x.csv', 'w')
-# with myFile2:
-#     writer2 = csv.writer(myFile2)
-#     writer2.writerows(train_x)
-#
-#
-# # train_x = PowerTransformer().fit_transform(train_x)
-# # test_x = PowerTransformer().fit_transform(test_x)
+myFile = open('../data/power_m_o_test_x.csv', 'w')
+with myFile:
+    writer = csv.writer(myFile)
+    writer.writerows(test_x)
+
+myFile2 = open('../data/power_m_o_train_x.csv', 'w')
+with myFile2:
+    writer2 = csv.writer(myFile2)
+    writer2.writerows(train_x)
+
+
+# train_x = PowerTransformer().fit_transform(train_x)
+# test_x = PowerTransformer().fit_transform(test_x)
 
 SCALER = None
 
