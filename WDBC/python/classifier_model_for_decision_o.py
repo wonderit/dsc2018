@@ -1,19 +1,18 @@
 import numpy as np
 import pandas as pd
+from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
+from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 # machine learning
 from sklearn.linear_model import LogisticRegression
-from sklearn.pipeline import Pipeline
-from sklearn.svm import SVC, LinearSVC
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.preprocessing import StandardScaler, RobustScaler, QuantileTransformer, MinMaxScaler, PowerTransformer
-
-from sklearn.neural_network import MLPClassifier
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
 from sklearn.model_selection import KFold
-from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.naive_bayes import GaussianNB
-from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
-from sklearn.metrics import make_scorer, accuracy_score
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.neural_network import MLPClassifier
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.svm import SVC, LinearSVC
+from sklearn.tree import DecisionTreeClassifier
 
 data_train = pd.read_csv("../data/speeddating_train_preprocessed.csv")
 data_test = pd.read_csv("../data/speeddating_test_preprocessed.csv")
@@ -25,17 +24,18 @@ variables_x = [
     'gender',
     'age',
     'age_o',
-    'samerace','important_same_race',
-    'pref_o_shared_interests', 'pref_o_attractive', 'pref_o_sincere',
-    'pref_o_intelligence', 'pref_o_funny', 'pref_o_ambitious',
-    # 'attractive_o', 'sinsere_o','intelligence_o', 'funny_o', 'ambitous_o', 'shared_interests_o',
-    'attractive_important', 'sincere_important', 'intellicence_important',
-    'funny_important', 'ambtition_important', 'shared_interests_important',
-    'attractive', 'sincere', 'intelligence', 'funny', 'ambition',
-    'attractive_partner', 'sincere_partner', 'intelligence_partner',
-    'funny_partner', 'ambition_partner', 'shared_interests_partner',
+    'samerace','importance_same_race',
+    'pref_o_shared_interests','pref_o_attractive','pref_o_sincere',
+    'pref_o_intelligence','pref_o_funny','pref_o_ambitious',
+    # 'attractive_o','sinsere_o','intelligence_o','funny_o','ambitous_o','shared_interests_o',
+    'attractive_important','sincere_important','intellicence_important',
+    'funny_important','ambtition_important','shared_interests_important',
+    'attractive','sincere','intelligence','funny','ambition',
+    'attractive_partner','sincere_partner','intelligence_partner',
+    'funny_partner','ambition_partner','shared_interests_partner',
     'met',
-    'like'
+    'like',
+    # 'att_m','sin_m','int_m','fun_m','amb_m','sha_m'
 ]
 
 variables_y = [
@@ -48,19 +48,7 @@ test_x = dataset_test[:, data_train.columns.isin(variables_x)]
 test_y = dataset_test[:, data_train.columns.isin(variables_y)].reshape(-1)
 #
 
-SCALER = RobustScaler()
-# train_x = StandardScaler().fit_transform(train_x)
-# test_x = StandardScaler().fit_transform(test_x)
-#
-# train_x = MinMaxScaler().fit_transform(train_x)
-# test_x = MinMaxScaler().fit_transform(test_x)
-#
-# train_x = QuantileTransformer().fit_transform(train_x)
-# test_x = QuantileTransformer().fit_transform(test_x)
-#
-# train_x = PowerTransformer().fit_transform(train_x)
-# test_x = PowerTransformer().fit_transform(test_x)
-
+SCALER = MinMaxScaler()
 
 def run_kfold(clf):
     kf = KFold(n_splits=10, shuffle=True)
@@ -107,21 +95,6 @@ classifiers = [
     Pipeline([('scaler', SCALER), ('classifier', AdaBoostClassifier())]),
     Pipeline([('scaler', SCALER), ('classifier', GaussianNB())]),
     Pipeline([('scaler', SCALER), ('classifier', QuadraticDiscriminantAnalysis())]),
-
-    # KNeighborsClassifier(n_neighbors=8),
-    # LogisticRegression(),
-    # LinearSVC(max_iter=5000, random_state=1),
-    # SVC(gamma='scale'),
-    # DecisionTreeClassifier(max_depth=5),
-    # RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1),
-    # MLPClassifier(activation='relu',
-    #               solver='lbfgs',
-    #               alpha=1e-5,
-    #               hidden_layer_sizes=(5, 2),
-    #               random_state=1),
-    # AdaBoostClassifier(),
-    # GaussianNB(),
-    # QuadraticDiscriminantAnalysis()
 ]
 
 
