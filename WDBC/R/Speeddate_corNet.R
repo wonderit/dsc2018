@@ -4,7 +4,15 @@ library(glasso)
 train = read.csv("../data/speeddating_likeo_train_yj.csv");
 test = read.csv("../data/speeddating_likeo_test_yj.csv");
 
-xdata = rbind(train[,c(-1,-2)],test[,c(-1,-2)]);
+
+# MinMax scale
+MinMax = function(x){ return((x-min(x))/(max(x)-min(x))); }
+train.MM = apply(train, 2, MinMax);
+test.MM = apply(test, 2, MinMax);
+
+xdata_ = rbind(train[,c(-1,-2)],test[,c(-1,-2)]);
+xdata = apply(xdata_, 2, MinMax);
+
 n=nrow(xdata)
 S.var = cov(xdata)
 nr=1000
@@ -17,11 +25,11 @@ for(j in 1:nr){
   bic[j]  <- -2*(a$loglik) + p_off_d*log(n)
 }
 best <- which.min(bic)
-tiff("../Res/Cross-validation_GLasso.tiff", width=1440, height = 1440)
+jpeg("../Res/Cross-validation_GLasso.jpg", width=1440, height = 1440)
 par(mar=c(10,10,8,2), mgp=c(6,2,0))
 plot(log(rho),bic, type='l', xlab = "log(Lambda)", ylab = "BIC", lwd=4, cex=4, cex.main=4, cex.lab=4, cex.axis=3, main="Cross-Validation for Graphical Lasso")
 points(log(rho[best]),bic[best],pch=19, col="red", cex=3)
-legend("bottomright", bty='n', legend = "Lambda.max", pch=19, col="red", cex=4)
+legend("topright", bty='n', legend = "Lambda.max", pch=19, col="red", cex=4)
 dev.off();
 
 a = glasso(S.var, rho[best])
@@ -43,9 +51,9 @@ g = graph(c(t(network[,1:2])), directed = FALSE)
 
 #A = ifelse(RES!=0 & row(RES)!=col(RES), 1,0)
 #g <- network(A, directed=FALSE)
-tiff("../Res/Correlation Network.tiff", width = 1440, height = 1440)
+jpeg("../Res/Correlation Network.jpg", width = 1440, height = 1440)
 par(mar=c(5,5,8,5))
-plot(g, vertex.label.dist=1.5, vertex.label.color="black", vertex.size=5, vertex.label.font=2, vertex.label.cex=2, cex.main=4, vertex.label.degree=-pi/2)
+plot(g, vertex.label.dist=1, vertex.label.color="black", vertex.size=5, vertex.label.font=2, vertex.label.cex=2, cex.main=4, vertex.label.degree=-pi/2)
 dev.off();
 
 
